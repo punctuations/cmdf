@@ -12,6 +12,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         redirect: req.body.redirect,
       },
     ]);
+    if (error) return res.status(500).json({ success: false, data: error });
 
     return res.status(200).json({
       success: true,
