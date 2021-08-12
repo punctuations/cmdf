@@ -8,33 +8,40 @@ export default function Home() {
   const [emoji, setEmoji] = React.useState<boolean>(false);
   const [redirect, setRedirect] = React.useState<string | null>(null);
 
-  function upload() {
+  React.useEffect(() => {
+    if (redirect) {
+      fetch("/api/upload", {
+        method: "POST",
+        body: JSON.stringify({
+          site,
+          redirect,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((r) => r.json())
+        .then((r) => alert(JSON.stringify(r, null, 2)));
+    }
+  }, [redirect]);
+
+  async function upload() {
     if (emoji) {
       let i,
         result = [];
       for (i = 0; i < 5; i++) {
         result.push(
-          emojis[
-            Object.keys(emojis)[
-              (Object.keys(emojis).length * Math.random()) << 0
-            ]
-          ]
+          Object.keys(emojis)[(Object.keys(emojis).length * Math.random()) << 0]
         );
       }
-      setRedirect(result.join(""));
+
+      const emojiString: string = await result.join("");
+
+      setRedirect(emojiString);
     } else {
       setRedirect(Math.random().toString(16).substr(2, 8));
     }
-
-    fetch("/api/upload", {
-      method: "POST",
-      body: JSON.stringify({
-        site,
-        redirect,
-      }),
-    });
   }
-
   return (
     <main className="absolute w-full h-full flex flex-col items-center justify-center space-y-12">
       <header>
