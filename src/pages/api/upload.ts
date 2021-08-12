@@ -8,7 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // Method is post, upload data.
     const { data, error } = await supabase.from("Links").insert([
       {
-        url: req.body.site,
+        url: `https://${req.body.site}`,
         redirect: req.body.redirect,
       },
     ]);
