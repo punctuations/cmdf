@@ -209,6 +209,7 @@ export default function Home() {
           {Socials.map((socials, i) => {
             return (
               <motion.div
+                className="duration-500 transition-all text-gray-400 hover:text-gray-700"
                 key={i}
                 initial={{ y: 20, opacity: 0 }}
                 animate={{
