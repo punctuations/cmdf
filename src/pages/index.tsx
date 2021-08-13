@@ -1,8 +1,14 @@
+import { motion } from "framer-motion";
 import React, { ChangeEvent } from "react";
+import Reward, { RewardElement } from "react-rewards";
+import { toast, Toaster } from "react-hot-toast";
+import { useClipboard } from "use-clipboard-copy";
+
 import { emojis } from "../../lib/constants";
+import { Socials } from "../../assets/socials";
 
 export default function Home() {
-  React.useEffect(() => {}, []);
+  const clipboard = useClipboard();
 
   const [site, setSite] = React.useState<string | null>(null);
   const [emoji, setEmoji] = React.useState<boolean>(false);
@@ -10,6 +16,8 @@ export default function Home() {
 
   React.useEffect(() => {
     if (redirect) {
+      const loading = toast.loading("Uploading...");
+
       fetch("/api/upload", {
         method: "POST",
         body: JSON.stringify({
@@ -21,34 +29,90 @@ export default function Home() {
         },
       })
         .then((r) => r.json())
-        .then((r) => alert(JSON.stringify(r, null, 2)));
+        .catch((err) => {
+          toast("Could not upload", {
+            icon: "❌",
+            id: loading,
+          });
+        })
+        .finally(() => {
+          toast(
+            <span>
+              Link shortened!
+              <button
+                className="ml-4 px-2 py-1 rounded duration-300 border-blue-500 bg-blue-500 hover:bg-white text-white hover:text-blue-700 border"
+                onClick={() => clipboard.copy(`https://cmdf.at/${redirect}`)}
+              >
+                {clipboard.copied ? "Copied!" : "Copy"}
+              </button>
+            </span>,
+            {
+              icon: "✅",
+              id: loading,
+              duration: 10000,
+            }
+          );
+          reward?.rewardMe();
+        });
     }
   }, [redirect]);
 
+  let reward: RewardElement | null = null;
+
   async function upload() {
-    if (emoji) {
-      let i,
-        result = [];
-      for (i = 0; i < 5; i++) {
-        result.push(
-          Object.keys(emojis)[(Object.keys(emojis).length * Math.random()) << 0]
-        );
+    if (site) {
+      if (emoji) {
+        let i,
+          result = [];
+        for (i = 0; i < 5; i++) {
+          result.push(
+            Object.keys(emojis)[
+              (Object.keys(emojis).length * Math.random()) << 0
+            ]
+          );
+        }
+
+        const emojiString: string = await result.join("");
+
+        setRedirect(emojiString);
+      } else {
+        setRedirect(Math.random().toString(16).substr(2, 8));
       }
-
-      const emojiString: string = await result.join("");
-
-      setRedirect(emojiString);
     } else {
-      setRedirect(Math.random().toString(16).substr(2, 8));
+      reward?.punishMe();
     }
   }
   return (
     <main className="absolute w-full h-full flex flex-col items-center justify-center space-y-12">
+      <Toaster position="top-center" reverseOrder={true} />
+
       <header>
-        <h3 className="font-semibold text-3xl">Hello, ⌘ + f!</h3>
-        <p className="text-gray-400">⌘ + f, find a new way to shorten urls</p>
+        <motion.h3
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35 }}
+          className="font-semibold text-3xl"
+        >
+          Hello, ⌘ + f!
+        </motion.h3>
+        <motion.p
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.35,
+            delay: 0.1,
+          }}
+          className="text-gray-400"
+        >
+          ⌘ + f, find a new way to shorten urls
+        </motion.p>
       </header>
-      <div className="duration-500 transition-shadow shadow-md hover:shadow-lg rounded-md p-6 py-8 grid place-content-center">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35 }}
+        className="duration-500 transition-shadow shadow-md hover:shadow-lg rounded-md p-6 py-8 grid place-content-center"
+      >
         <h6 className="text-gray-500">start shortening :)</h6>
         <form className="flex flex-col space-y-3">
           <label
@@ -91,13 +155,46 @@ export default function Home() {
             </label>
           </div>
         </form>
+
         <button
           onClick={() => upload()}
-          className="mt-3 duration-150 transition-colors px-3 py-2 rounded-md border border-gray-400 hover:border-black text-gray-500 hover:text-black"
+          className="w-full mt-3 duration-150 transition-colors px-3 py-2 rounded-md border border-gray-400 hover:border-black text-gray-500 hover:text-black"
         >
           Shorten
+          <Reward
+            ref={(ref) => (reward = ref)}
+            type="confetti"
+            config={{
+              angle: 90,
+              springAnimation: false,
+              spread: 360,
+              elementCount: 150,
+            }}
+          />
         </button>
-      </div>
+      </motion.div>
+
+      <section className="absolute left-5 bottom-5 flex flex-row space-x-4">
+        {Socials.map((socials, i) => {
+          return (
+            <motion.div
+              key={i}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{
+                y: 0,
+                opacity: 1,
+                transition: {
+                  duration: 0.4,
+                  delay: 0.2 + (i / 100 + 0.05) * 5,
+                  ease: [0.48, 0.15, 0.25, 0.96],
+                },
+              }}
+            >
+              {socials}
+            </motion.div>
+          );
+        })}
+      </section>
     </main>
   );
 }
