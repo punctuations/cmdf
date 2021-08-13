@@ -1,5 +1,5 @@
-![Logo](https://github.com/kaito-http/brand/raw/main/logo.png)
+![Logo](public/cmd.png)
 
-# react-template
+# cmd + f
 
-A basic Next.js template pre-configured with Tailwind and TypeScript.
+Find a new way to shorten urls
