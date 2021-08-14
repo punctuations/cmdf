@@ -22,11 +22,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         input: `${req.body.site.length} chars received.`,
       });
 
-    if (!Boolean(new URL(`https://${req.body.site}`)))
+    if (!Boolean(new URL(req.body.site)))
       // Not acceptable.
       return res.status(406).json({
         success: false,
-        data: "The URL does not conform to the URL pattern -- please do not include http protocols.",
+        data: "The URL does not conform to the URL pattern.",
       });
 
     let redirect;
