@@ -6,7 +6,7 @@ export async function getServerSideProps(ctx: { params: { id: string } }) {
   const res = await fetch(
     process.env.NODE_ENV === "development"
       ? "http://0.0.0.0:3000/api/read" // REPLACE WITH YOUR URL
-      : "https://timerr.vercel.app/api/read",
+      : "https://cmdf.at/api/read",
     {
       method: "POST",
       body: JSON.stringify({
