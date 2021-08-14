@@ -19,7 +19,7 @@ export async function getServerSideProps(ctx: { params: { id: string } }) {
   );
 
   const body = await res.json();
-  if (!body.supabase) {
+  if (!body.supabase[0]) {
     return {
       notFound: true,
     };
