@@ -63,7 +63,7 @@ export default function Home() {
   let reward: RewardElement | null = null;
 
   async function upload() {
-    if (site) {
+    if (site && site.length <= 78) {
       if (emoji) {
         let i,
           result = [];
