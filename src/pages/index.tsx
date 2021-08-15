@@ -163,7 +163,7 @@ export default function Home() {
                   setSite(e.target.value)
                 }
                 pattern="^(?!.*[Hh][Tt][Tt][Pp][Ss]?:\/\/)(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?"
-                className="duration-150 transition-colors focus:outline-none focus:border-black block w-full pl-16 pr-3 py-1 sm:text-sm border border-gray-400 rounded-md"
+                className="duration-150 transition-colors focus:outline-none focus:border-black block w-full 2xl:pl-[3.75rem] xl:pl-[3.75rem] lg:pl-[3.75rem] md:pl-[3.75rem] sm:pl-[3.75rem] pl-16 pr-3 py-1 sm:text-sm border border-gray-400 rounded-md"
                 placeholder="example.com"
                 required
               />
