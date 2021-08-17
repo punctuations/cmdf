@@ -197,7 +197,7 @@ export default function Home() {
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setEmoji(e.target.value === "on")
                 }
-                className="form-checkbox ring-0 transition-colors duration-150 h-4 w-4 appearance-none checked:text-black checked:hover:text-gray-800 checked:border-transparent border border-gray-300 rounded"
+                className="form-checkbox focus:ring-0 transition-colors duration-150 h-4 w-4 appearance-none checked:text-black checked:hover:text-gray-800 checked:border-transparent border border-gray-300 rounded"
               />
               <label
                 htmlFor="emojis"
