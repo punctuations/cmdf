@@ -14,7 +14,7 @@ export default function Home() {
   const clipboard = useClipboard();
 
   const [site, setSite] = React.useState<string | null>(null);
-  const [link, setLink] = React.useState<string | null>(null)
+  const [link, setLink] = React.useState<string>('https://cmdf.at')
   const [emoji, setEmoji] = React.useState<boolean>(false);
   const [redirect, setRedirect] = React.useState<string | null>(null);
 
