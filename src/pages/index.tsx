@@ -7,13 +7,14 @@ import Reward, { RewardElement } from "react-rewards";
 import { toast, Toaster } from "react-hot-toast";
 import { useClipboard } from "use-clipboard-copy";
 
-import { emojis } from "../../lib/constants";
+import {emojis, links} from "../../lib/constants";
 import { Socials } from "../../assets/socials";
 
 export default function Home() {
   const clipboard = useClipboard();
 
   const [site, setSite] = React.useState<string | null>(null);
+  const [link, setLink] = React.useState<string | null>(null)
   const [emoji, setEmoji] = React.useState<boolean>(false);
   const [redirect, setRedirect] = React.useState<string | null>(null);
 
@@ -44,7 +45,7 @@ export default function Home() {
               Link shortened!
               <button
                 className="ml-4 px-2 py-1 rounded duration-300 border-blue-500 bg-blue-500 hover:bg-white text-white hover:text-blue-700 border"
-                onClick={() => clipboard.copy(`https://cmdf.at/${redirect}`)}
+                onClick={() => clipboard.copy(`${link}/${redirect}`)}
               >
                 {clipboard.copied ? "Copied!" : "Copy"}
               </button>
@@ -167,6 +168,26 @@ export default function Home() {
                 placeholder="example.com"
                 required
               />
+            </div>
+            <div className="mt-1 relative rounded-md shadow-sm">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <span className="text-gray-500 sm:text-sm">https://</span>
+              </div>
+              <select
+                  id="links"
+                  name="links"
+                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                      setLink(e.target.value)
+                  }
+                  className="duration-150 transition-colors focus:outline-none focus:ring-none focus:border-black block w-full 2xl:pl-[3.75rem] xl:pl-[3.75rem] lg:pl-[3.75rem] md:pl-[3.75rem] sm:pl-[3.75rem] pl-16 pr-3 py-1 sm:text-sm border border-gray-400 rounded-md"
+                  required
+              >
+                {links.map((link) => {
+                  return (
+                     <option key={link} value={`https://${link}`}>{link}</option>
+                  );
+                })}
+              </select>
             </div>
             <div className="flex items-center">
               <input
