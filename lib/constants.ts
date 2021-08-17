@@ -36,6 +36,7 @@ export const emojis: { [index: string]: string } = {
   "🦖": "t_rex",
   "🐉": "dragon",
   "🤡": "clown",
+  "☁️": "cloud",
 };
 
 export const links = [
