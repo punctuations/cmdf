@@ -171,7 +171,7 @@ export default function Home() {
             </div>
             <div className="mt-1 relative rounded-md shadow-sm">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span className="text-gray-500 sm:text-sm">https://</span>
+                <span className="text-gray-500 sm:text-sm">&rarr;</span>
               </div>
               <select
                   id="links"
@@ -179,7 +179,7 @@ export default function Home() {
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                       setLink(e.target.value)
                   }
-                  className="duration-150 transition-colors focus:outline-none focus:ring-none focus:border-black block w-full 2xl:pl-[3.75rem] xl:pl-[3.75rem] lg:pl-[3.75rem] md:pl-[3.75rem] sm:pl-[3.75rem] pl-16 pr-3 py-1 sm:text-sm border border-gray-400 rounded-md"
+                  className="duration-150 transition-colors focus:outline-none focus:ring-0 focus:border-black block w-full 2xl:pl-8 xl:pl-8 lg:pl-8 md:pl-8 sm:pl-8 pl-16 pr-3 py-1 sm:text-sm border border-gray-400 rounded-md"
                   required
               >
                 {links.map((link) => {
