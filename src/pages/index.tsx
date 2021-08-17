@@ -7,14 +7,14 @@ import Reward, { RewardElement } from "react-rewards";
 import { toast, Toaster } from "react-hot-toast";
 import { useClipboard } from "use-clipboard-copy";
 
-import {emojis, links} from "../../lib/constants";
+import { emojis, links } from "../../lib/constants";
 import { Socials } from "../../assets/socials";
 
 export default function Home() {
   const clipboard = useClipboard();
 
   const [site, setSite] = React.useState<string | null>(null);
-  const [link, setLink] = React.useState<string>('https://cmdf.at')
+  const [link, setLink] = React.useState<string>("https://cmdf.at");
   const [emoji, setEmoji] = React.useState<boolean>(false);
   const [redirect, setRedirect] = React.useState<string | null>(null);
 
@@ -86,6 +86,7 @@ export default function Home() {
       reward?.punishMe();
     }
   }
+
   return (
     <>
       <Head>
@@ -174,17 +175,19 @@ export default function Home() {
                 <span className="text-gray-500 sm:text-sm">&rarr;</span>
               </div>
               <select
-                  id="links"
-                  name="links"
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                      setLink(e.target.value)
-                  }
-                  className="duration-150 transition-colors focus:outline-none focus:ring-0 focus:border-black block w-full 2xl:pl-8 xl:pl-8 lg:pl-8 md:pl-8 sm:pl-8 pl-16 pr-3 py-1 sm:text-sm border border-gray-400 rounded-md"
-                  required
+                id="links"
+                name="links"
+                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                  setLink(e.target.value)
+                }
+                className="duration-150 transition-colors focus:outline-none focus:ring-0 focus:border-black block w-full 2xl:pl-8 xl:pl-8 lg:pl-8 md:pl-8 sm:pl-8 pl-16 pr-3 py-1 sm:text-sm border border-gray-400 rounded-md"
+                required
               >
                 {links.map((link) => {
                   return (
-                     <option key={link} value={`https://${link}`}>{link}</option>
+                    <option key={link} value={`https://${link}`}>
+                      {link}
+                    </option>
                   );
                 })}
               </select>
