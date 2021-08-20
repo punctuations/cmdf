@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 import { supabase } from "../../../lib/supabaseClient";
-import { emojis, links, pattern } from "../../../lib/constants";
+import { emojis, links } from "../../../lib/constants";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   // Is method POST?
