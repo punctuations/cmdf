@@ -13,6 +13,9 @@ import { Socials } from "../../assets/socials";
 export default function Home() {
   const clipboard = useClipboard();
 
+  const [lastUpload, setUploadTime] = React.useState<number | null>(null);
+  const [limited, setRateLimit] = React.useState<boolean>(false);
+
   const [site, setSite] = React.useState<string | null>(null);
   const [link, setLink] = React.useState<string>("https://cmdf.at");
   const [emoji, setEmoji] = React.useState<boolean>(false);
@@ -64,7 +67,15 @@ export default function Home() {
   let reward: RewardElement | null = null;
 
   async function upload() {
-    if (site && site.length <= 78) {
+    if (lastUpload && lastUpload + 2 > Math.floor(Date.now() / 1000)) {
+      setRateLimit(true);
+    } else {
+      setRateLimit(false);
+    }
+
+    console.log("limited:", JSON.stringify(limited));
+    if (site && site.length <= 78 && !limited) {
+      setUploadTime(Math.floor(Date.now() / 1000));
       if (emoji) {
         let i,
           result = [];
